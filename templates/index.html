@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Churn Prediction</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        input, select { padding: 6px; }
+        button { grid-column: span 2; padding: 8px 12px; background-color: green; color: white; }
+        table { margin-top: 20px; border-collapse: collapse; width: 60%; }
+        th, td { border: 1px solid #ccc; padding: 8px; }
+    </style>
+</head>
+<body>
+    <h2>Enter User Information in the Form Below</h2>
+    <form method="POST">
+        <label>Credit Score:</label><input type="number" name="credit_score" required />
+        <label>Number of Products Used:</label>
+        <select name="products">
+            <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+        </select>
+        <label>Country:</label>
+        <select name="country">
+            <option value="France">France</option>
+            <option value="Spain">Spain</option>
+            <option value="Germany">Germany</option>
+        </select>
+        <label>Has an Active Credit Card:</label>
+        <select name="credit_card">
+            <option value="1">Yes</option><option value="0">No</option>
+        </select>
+        <label>Gender:</label>
+        <select name="gender">
+            <option value="Male">Male</option><option value="Female">Female</option>
+        </select>
+        <label>Is an Active Bank Member:</label>
+        <select name="active_member">
+            <option value="1">Yes</option><option value="0">No</option>
+        </select>
+        <label>Age:</label><input type="number" name="age" required />
+        <label>Estimated Salary:</label><input type="number" name="salary" required />
+        <label>Years as Bank Customer:</label><input type="number" name="tenure" required />
+        <label>Account Balance:</label><input type="number" name="balance" required />
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if predictions %}
+        <h3>Model Prediction that Customer is Likely to Exit</h3>
+        <table>
+            <tr><th>Model Name</th><th>Prediction</th></tr>
+            {% for model, result in predictions.items() %}
+                <tr><td>{{ model }}</td><td>{{ result }}</td></tr>
+            {% endfor %}
+        </table>
+
+        <h3>Customer Data Input Record</h3>
+        <table>
+            {% for key, value in user_input.items() %}
+                <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+</body>
+</html>
